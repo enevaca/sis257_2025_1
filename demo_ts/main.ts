@@ -3,6 +3,8 @@
  * Comentario en múltiples líneas
  */
 
+import { Estudiante, Persona } from "./poo";
+
 // Tipo de Datos
 // Boolean
 let esActivo: boolean = true; // let: El ámbito es local, funciona dentro del scope (función, ciclo, if, {})
@@ -83,5 +85,9 @@ function saludo(nombre: string):void {
 }
 saludo('Juan');
 
+// POO
+let persona: Persona = new Persona('123456', 'Juan', 'Pérez', 'López', new Date('2008-05-16'));
+persona.saludar();
 
-console.log(coche);
+let estudiante: Estudiante = new Estudiante('654321', 'María', 'Suárez', 'Aro', new Date('2010-12-25'), '35-254');
+estudiante.saludar();
