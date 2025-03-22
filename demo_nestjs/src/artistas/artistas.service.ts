@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateArtistaDto } from './dto/create-artista.dto';
 import { UpdateArtistaDto } from './dto/update-artista.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,20 +9,34 @@ import { Repository } from 'typeorm';
 export class ArtistasService {
   constructor(@InjectRepository(Artista) private artistasRepository: Repository<Artista>) {}
 
-  async create(createArtistaDto: CreateArtistaDto) {
-    return this.artistasRepository.save(createArtistaDto);
+  async create(createArtistaDto: CreateArtistaDto): Promise<Artista> {
+    const existe = await this.artistasRepository.findOneBy({
+      nombre: createArtistaDto.nombre.trim(),
+      nacionalidad: createArtistaDto.nacionalidad.trim(),
+    });
+
+    if (existe) throw new ConflictException('El artista ya existe');
+
+    const artista = new Artista();
+    artista.nombre = createArtistaDto.nombre.trim();
+    artista.nacionalidad = createArtistaDto.nacionalidad.trim();
+    return this.artistasRepository.save(artista);
   }
 
   async findAll() {
     return this.artistasRepository.find();
   }
 
-  async findOne(id: number) {
-    return this.artistasRepository.findOneBy({ id });
+  async findOne(id: number): Promise<Artista> {
+    const artista = await this.artistasRepository.findOneBy({ id });
+    if (!artista) throw new NotFoundException('El artista no existe');
+    return artista;
   }
 
   async update(id: number, updateArtistaDto: UpdateArtistaDto) {
-    return this.artistasRepository.save({ id, ...updateArtistaDto });
+    const artista = await this.findOne(id);
+    const artistaUpdate = Object.assign(artista, updateArtistaDto);
+    return this.artistasRepository.save(artistaUpdate);
   }
 
   async remove(id: number) {
