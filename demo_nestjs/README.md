@@ -31,6 +31,8 @@
 $ npm install
 ```
 
+create user usr_music with password '123456';
+
 ## Compile and run the project
 
 ```bash
