@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ArtistasModule } from './artistas/artistas.module';
 import { GenerosModule } from './generos/generos.module';
 import { AlbumesModule } from './albumes/albumes.module';
+import { CancionesModule } from './canciones/canciones.module';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { AlbumesModule } from './albumes/albumes.module';
     ArtistasModule,
     GenerosModule,
     AlbumesModule,
+    CancionesModule,
+    UsuariosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

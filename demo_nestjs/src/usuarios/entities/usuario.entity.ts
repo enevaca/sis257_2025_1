@@ -1,21 +1,31 @@
-import { Cancion } from 'src/canciones/entities/cancion.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('generos')
-export class Genero {
+@Entity('usuarios')
+export class Usuario {
   @PrimaryGeneratedColumn('identity')
   id: number;
 
-  @Column('varchar', { length: 30 })
-  descripcion: string;
+  @Column('varchar', { length: 15 })
+  usuario: string;
+
+  @Column('varchar', { length: 250 })
+  clave: string;
+
+  @Column('varchar', { length: 70 })
+  email: string;
+
+  @Column('varchar', { length: 15 })
+  rol: string;
+
+  @Column('boolean')
+  premium: boolean;
 
   @CreateDateColumn({ name: 'fecha_creacion' })
   fechaCreacion: Date;
@@ -25,7 +35,4 @@ export class Genero {
 
   @DeleteDateColumn({ name: 'fecha_eliminacion' })
   fechaEliminacion: Date;
-
-  @OneToMany(() => Cancion, cancion => cancion.genero)
-  canciones: Cancion[];
 }
