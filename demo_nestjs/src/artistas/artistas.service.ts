@@ -24,7 +24,7 @@ export class ArtistasService {
   }
 
   async findAll() {
-    return this.artistasRepository.find();
+    return this.artistasRepository.find({ order: { nombre: 'ASC' } });
   }
 
   async findOne(id: number): Promise<Artista> {
