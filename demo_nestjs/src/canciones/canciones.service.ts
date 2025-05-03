@@ -30,14 +30,14 @@ export class CancionesService {
 
   async findAll(): Promise<Cancion[]> {
     return this.cancionesRepository.find({
-      relations: { album: true, genero: true },
+      relations: { genero: true, album: { artista: true } },
       select: {
         id: true,
         nombre: true,
         duracion: true,
         tags: true,
         url: true,
-        album: { id: true, nombre: true },
+        album: { id: true, nombre: true, artista: { nombre: true } },
         genero: { id: true, descripcion: true },
       },
     });
