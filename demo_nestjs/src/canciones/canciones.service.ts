@@ -37,9 +37,10 @@ export class CancionesService {
         duracion: true,
         tags: true,
         url: true,
-        album: { id: true, nombre: true, artista: { nombre: true } },
+        album: { id: true, nombre: true, artista: { id: true, nombre: true } },
         genero: { id: true, descripcion: true },
       },
+      order: { album: { artista: { nombre: 'ASC' } }, nombre: 'ASC' },
     });
   }
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CancionList from '@/components/cancion/CancionList.vue'
+import CancionSave from '@/components/cancion/CancionSave.vue'
 import { Button } from 'primevue'
 import { ref } from 'vue'
 
@@ -30,7 +31,14 @@ function handleGuardar() {
   <div>
     <h2>Canciones</h2>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="handleCreate" />
-    <CancionList ref="cantionListRef" @edit="handleEdit" />
+    <CancionList ref="cancionListRef" @edit="handleEdit" />
+    <CancionSave
+      :mostrar="mostrarDialog"
+      :cancion="cancionEdit"
+      :modoEdicion="!!cancionEdit"
+      @guardar="handleGuardar"
+      @close="handleCloseDialog"
+    />
   </div>
 </template>
 
