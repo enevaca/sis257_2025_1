@@ -77,10 +77,13 @@ watch(
       obtenerGeneros()
       obtenerArtistas()
 
-      if (props.cancion.id) {
+      if (props.cancion?.id) {
         cancion.value = { ...props.cancion }
         artista.value.id = cancion.value.album.artista.id
         obtenerAlbumes()
+      } else {
+        artista.value = { id: 0 } as Artista
+        cancion.value = { genero: { id: 0 }, album: { id: 0 } } as Cancion
       }
     }
   },

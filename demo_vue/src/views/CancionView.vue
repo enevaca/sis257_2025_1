@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CancionList from '@/components/cancion/CancionList.vue'
 import CancionSave from '@/components/cancion/CancionSave.vue'
+import type { Cancion } from '@/models/cancion'
 import { Button } from 'primevue'
 import { ref } from 'vue'
 
@@ -13,7 +14,7 @@ function handleCreate() {
   mostrarDialog.value = true
 }
 
-function handleEdit(cancion: any) {
+function handleEdit(cancion: Cancion) {
   cancionEdit.value = cancion
   mostrarDialog.value = true
 }
@@ -28,9 +29,9 @@ function handleGuardar() {
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-column overflow-hidden">
     <h2>Canciones</h2>
-    <Button label="Crear Nuevo" icon="pi pi-plus" @click="handleCreate" />
+    <Button label="Crear Nuevo" icon="pi pi-plus" @click="handleCreate" class="col-3" />
     <CancionList ref="cancionListRef" @edit="handleEdit" />
     <CancionSave
       :mostrar="mostrarDialog"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Cancion } from '@/models/cancion'
 import http from '@/plugins/axios'
-import { Dialog, InputGroup, InputGroupAddon, InputText } from 'primevue'
+import { Column, DataTable, Dialog, InputGroup, InputGroupAddon, InputText } from 'primevue'
 import Button from 'primevue/button'
 import { computed, onMounted, ref } from 'vue'
 
@@ -17,8 +17,12 @@ async function obtenerLista() {
 }
 
 const cancionesFiltrados = computed(() => {
-  return canciones.value.filter((cancion) =>
-    cancion.nombre.toLowerCase().includes(busqueda.value.toLowerCase()),
+  return canciones.value.filter(
+    (cancion) =>
+      cancion.nombre.toLowerCase().includes(busqueda.value.toLowerCase()) ||
+      cancion.genero.descripcion.toLowerCase().includes(busqueda.value.toLowerCase()) ||
+      cancion.album.artista.nombre.toLowerCase().includes(busqueda.value.toLowerCase()) ||
+      cancion.album.nombre.toLowerCase().includes(busqueda.value.toLowerCase()),
   )
 })
 
@@ -45,13 +49,56 @@ defineExpose({ obtenerLista })
 
 <template>
   <div>
-    <div class="col-7 pl-0 mt-3">
+    <div class="col-7 pl-0 mt-2">
       <InputGroup>
         <InputGroupAddon><i class="pi pi-search"></i></InputGroupAddon>
         <InputText v-model="busqueda" type="text" placeholder="Buscar por nombre" />
       </InputGroup>
     </div>
-    <table>
+    <div>
+      <DataTable
+        :value="cancionesFiltrados"
+        paginator
+        scrollable
+        scrollHeight="flex"
+        :rows="5"
+        :rowsPerPageOptions="[5, 10, 20, 50]"
+        tableStyle="min-width: 50rem"
+        paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        currentPageReportTemplate="{first} a {last} de {totalRecords}"
+      >
+        <Column
+          field="genero.descripcion"
+          header="Género"
+          sortable
+          style="min-width: 100px"
+        ></Column>
+        <Column
+          field="album.artista.nombre"
+          header="Artista"
+          sortable
+          style="min-width: 100px"
+        ></Column>
+        <Column field="album.nombre" header="Album" sortable style="min-width: 100px"></Column>
+        <Column field="nombre" header="Nombre" sortable style="min-width: 100px"></Column>
+        <Column field="duracion" header="Duración" style="min-width: 100px"></Column>
+        <Column field="tags" header="Tags" style="min-width: 100px"></Column>
+        <Column field="url" header="URL" style="min-width: 100px"></Column>
+        <Column header="Acciones" frozen alignFrozen="right" style="min-width: 120px">
+          <template #body="{ data }">
+            <Button icon="pi pi-pencil" aria-label="Editar" text @click="emitirEdicion(data)" />
+            <Button
+              icon="pi pi-trash"
+              aria-label="Eliminar"
+              severity="danger"
+              text
+              @click="mostrarEliminarConfirm(data)"
+            />
+          </template>
+        </Column>
+      </DataTable>
+    </div>
+    <table v-if="false">
       <thead>
         <tr>
           <th>Nro.</th>
