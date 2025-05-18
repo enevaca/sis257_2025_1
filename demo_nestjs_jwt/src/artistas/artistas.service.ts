@@ -20,6 +20,7 @@ export class ArtistasService {
     const artista = new Artista();
     artista.nombre = createArtistaDto.nombre.trim();
     artista.nacionalidad = createArtistaDto.nacionalidad.trim();
+    artista.fotografia = createArtistaDto.fotografia.trim();
     return this.artistasRepository.save(artista);
   }
 

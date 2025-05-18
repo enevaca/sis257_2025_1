@@ -20,6 +20,9 @@ export class Artista {
   @Column('varchar', { length: 30 })
   nacionalidad: string;
 
+  @Column('varchar', { length: 500, default: '' })
+  fotografia: string;
+
   @CreateDateColumn({ name: 'fecha_creacion' })
   fechaCreacion: Date;
 

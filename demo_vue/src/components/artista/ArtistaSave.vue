@@ -37,6 +37,7 @@ async function handleSave() {
     const body = {
       nombre: artista.value.nombre,
       nacionalidad: artista.value.nacionalidad,
+      fotografia: artista.value.fotografia,
     }
     if (props.modoEdicion) {
       await http.patch(`${ENDPOINT}/${artista.value.id}`, body)
@@ -76,7 +77,15 @@ async function handleSave() {
           v-model="artista.nacionalidad"
           class="flex-auto"
           autocomplete="off"
-          autofocus
+        />
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="fotografia" class="font-semibold w-3">Url fotografia</label>
+        <InputText
+          id="fotografia"
+          v-model="artista.fotografia"
+          class="flex-auto"
+          autocomplete="off"
         />
       </div>
       <div class="flex justify-end gap-2">

@@ -13,4 +13,10 @@ export class CreateArtistaDto {
   @IsString({ message: 'El campo nacionalidad debe ser de tipo cadena' })
   @MaxLength(30, { message: 'El campo nacionalidad no debe ser mayor a 30 caracteres' })
   readonly nacionalidad: string;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'El campo fotografia es obligatorio' })
+  @IsString({ message: 'El campo fotografia debe ser de tipo cadena' })
+  @MaxLength(500, { message: 'El campo fotografia no debe ser mayor a 500 caracteres' })
+  readonly fotografia: string;
 }
