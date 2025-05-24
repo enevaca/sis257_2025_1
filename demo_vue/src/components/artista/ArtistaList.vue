@@ -109,25 +109,6 @@ defineExpose({ obtenerLista })
         <Button type="button" label="Eliminar" @click="eliminar" />
       </div>
     </Dialog>
-
-    <Card
-      v-for="artista in artistasFiltrados"
-      :key="artista.id"
-      style="width: 25rem; overflow: hidden"
-    >
-      <template #header>
-        <img alt="user header" :src="artista.fotografia" width="100%" height="250px" />
-      </template>
-      <template #title>{{ artista.nombre }}</template>
-      <template #subtitle>{{ artista.nacionalidad }}</template>
-      <template #content>
-        <p class="m-0">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
-          repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
-          ratione quam perferendis esse, cupiditate neque quas!
-        </p>
-      </template>
-    </Card>
   </div>
 </template>
 

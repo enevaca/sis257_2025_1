@@ -29,7 +29,7 @@ function handleGuardar() {
 </script>
 
 <template>
-  <div class="flex flex-column overflow-hidden">
+  <div class="m-7 flex flex-column overflow-hidden">
     <h2>Canciones</h2>
     <Button label="Crear Nuevo" icon="pi pi-plus" @click="handleCreate" class="col-3" />
     <CancionList ref="cancionListRef" @edit="handleEdit" />
